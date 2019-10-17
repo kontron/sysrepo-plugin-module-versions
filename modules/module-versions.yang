@@ -1,0 +1,86 @@
+module module-versions {
+
+  namespace "urn:tttech:bu-industrial:yang:module-versions";
+  prefix mod_ver;
+  
+  organization
+    "TTTech Computertechnik AG";
+  contact
+    "Web URL: http://tttech.com";
+  description 
+    "The proprietary YANG module for configuration managament.
+    
+    This custom YANG module contains the data of all implemented YANG modules with their
+    names, revisions, commit ids from github, internal revisions, developer comments, ...";
+  revision 2018-12-17 {
+    description 
+      "The all objects are config false now. 
+      The leaf 'open_source_module' renamed to 'source' and his type changed to enum.";
+  }
+  revision 2018-12-06 {
+    description 
+      "The first revision.";
+  }
+  
+  container module-versions {
+    config false;
+    description
+      "Modules configuration data.";
+    list module {
+        description 
+            "The list of yang modules.";
+        key "name";
+            
+        leaf name {
+        type string;
+        description
+          "The name of the YANG module.";
+        }
+        
+        leaf revision {
+        type string;
+        description
+          "The revision of the YANG module.";
+        }
+        
+        leaf source {
+        type enumeration {
+            enum github {
+              description
+              "The yang module is from github.";
+            }
+            enum fromMIB {
+              description
+              "The yang module is generated from MIB.";
+            }
+            enum proprietary {
+              description
+              "The yang module is TTTech proprietary module.";
+            }
+        }
+        description
+          "This leaf represnets the source of implemented YANG module: github, generated from MIB, proprietary yang module.";
+        }
+        
+        leaf commit_id {
+        type string;
+        description
+          "The github commit-id of the YANG module.
+          This leaf exist only if leaf 'source' has value 'github'";
+        }
+        
+        leaf internal_version {
+        type string;
+        description
+          "The TTTech inernal version of the YANG module.";
+        }
+        
+        leaf-list developer_change {
+        type string;
+        description
+          "The YANG module modifications made by developers.
+          Create a new leaf for any new change.";
+        }
+    }
+  }
+}

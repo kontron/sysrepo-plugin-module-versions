@@ -1,0 +1,18 @@
+find_package(PkgConfig)
+pkg_check_modules(PC_LIBNL-NF QUIET libnl3)
+
+find_path(LIBNL-NF_INCLUDE_DIR netlink/version.h
+	HINTS ${PC_LIBNL-NF_INCLUDEDIR} ${PC_LIBNL_NF_INCLUDE_DIRS} PATH_SUFFIXES libnl3)
+
+find_library(LIBNL-NF_LIBRARY NAMES nl-nf-3 nl-nf
+	HINTS ${PC_LIBNL-NF_LIBDIR} ${PC_LIBNL-NF_LIBRARY_DIRS})
+
+set(LIBNL-NF_LIBRARIES ${LIBNL-NF_LIBRARY})
+set(LIBNL-NF_INCLUDE_DIRS ${LIBNL-NF_INCLUDE_DIR})
+
+include(FindPackageHandleStandardArgs)
+
+find_package_handle_standard_args(LIBNL-NF DEFAULT_MSG LIBNL-NF_LIBRARY LIBNL-NF_INCLUDE_DIR)
+
+mark_as_advanced(LIBNL-NF_INCLUDE_DIR LIBNL-NF_LIBRARY)
+
