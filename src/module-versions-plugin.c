@@ -12,8 +12,6 @@
 int modvers_dataprovider_cb(const char *xpath, sr_val_t **values, size_t *values_cnt,
                                    uint64_t request_id, const char *original_xpath, void *private_ctx) {
     sr_val_t *v = NULL;
-    sr_xpath_ctx_t sr_xp_ctx, sr_xp_ctx_2;
-    char *node_name = NULL;
     int rc = SR_ERR_OK;
 
     if (sr_xpath_node_name_eq(xpath, "module")) {
@@ -369,9 +367,6 @@ int modvers_dataprovider_cb(const char *xpath, sr_val_t **values, size_t *values
         values_cnt = 0;
     }
 
-    node_name = NULL;
-    free(my_xpath);
-
     return SR_ERR_OK;
 }
 
@@ -380,7 +375,6 @@ int sr_plugin_init_cb(sr_session_ctx_t *session, void **private_ctx) {
     sr_subscription_ctx_t *subscription = NULL;
     sr_subscription_ctx_t *subscription_oper = NULL;
     int rc = SR_ERR_OK;
-    int r;
 
     // operational data
     rc = sr_dp_get_items_subscribe(session, "/module-versions:module-versions", modvers_dataprovider_cb, NULL, SR_SUBSCR_DEFAULT, &subscription_oper);

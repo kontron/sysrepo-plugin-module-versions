@@ -11,7 +11,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 #set(CMAKE_C_FLAGS_DEBUG   "-g -O0 -DDEBUG")
 
 set(SOURCES
-	src/module-versions.c)
+	src/module-versions-plugin.c)
 
 if(CMAKE_BUILD_TYPE MATCHES "debug")
   add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
@@ -51,8 +51,8 @@ include_directories(${SYSREPO_INCLUDE_DIRS})
 find_package(LIBNL REQUIRED)
 target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBNL_LIBRARIES})
 
-find_package(LIBNL-ROUTE REQUIRED)
-target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBNL-ROUTE_LIBRARIES})
+#find_package(LIBNL-ROUTE REQUIRED)
+#target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBNL-ROUTE_LIBRARIES})
 
 include_directories(${LIBNL_INCLUDE_DIR})
 
