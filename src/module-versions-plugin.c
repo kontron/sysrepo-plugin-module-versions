@@ -14,6 +14,10 @@ int modvers_dataprovider_cb(const char *xpath, sr_val_t **values, size_t *values
     sr_val_t *v = NULL;
     int rc = SR_ERR_OK;
 
+    (void)request_id;
+    (void)original_xpath;
+    (void)private_ctx;
+
     if (sr_xpath_node_name_eq(xpath, "module")) {
         int fields = 0;
         int fields_max = 200;
