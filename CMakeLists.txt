@@ -38,24 +38,6 @@ find_package(SYSREPO REQUIRED)
 target_link_libraries(${CMAKE_PROJECT_NAME} ${SYSREPO_LIBRARIES})
 include_directories(${SYSREPO_INCLUDE_DIRS})
 
-#find_package(UCI REQUIRED)
-#include_directories(${UCI_INCLUDE_DIR})
-#target_link_libraries(${CMAKE_PROJECT_NAME} ${UCI_LIBRARIES})
-
-#find_package(LIBNL-NF REQUIRED)
-#target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBNL-NF_LIBRARIES})
-
-#find_package(LIBNL-GENL REQUIRED)
-#target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBNL-GENL_LIBRARIES})
-
-find_package(LIBNL REQUIRED)
-target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBNL_LIBRARIES})
-
-#find_package(LIBNL-ROUTE REQUIRED)
-#target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBNL-ROUTE_LIBRARIES})
-
-include_directories(${LIBNL_INCLUDE_DIR})
-
 # find programs
 if (NOT SYSREPOCTL_EXECUTABLE)
     find_program(SYSREPOCTL_EXECUTABLE sysrepoctl)
