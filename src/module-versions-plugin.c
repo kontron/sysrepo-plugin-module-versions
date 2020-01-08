@@ -30,6 +30,7 @@ int modvers_dataprovider_cb(sr_session_ctx_t *session, const char *module_name, 
     (void)request_id;
     (void)private_data;
 
+if ( 0 > 1 ) {
     printf("module_name:   \"%s\"\n", module_name);
     printf("path:          \"%s\"\n", path);
     printf("request_xpath: \"%s\"\n", request_xpath);
@@ -53,6 +54,8 @@ int modvers_dataprovider_cb(sr_session_ctx_t *session, const char *module_name, 
     printf("rc: %d, \"%s\"\n", rc, "*");
     
     // if (sr_xpath_node_name_eq(path, "module")) {
+}
+
     if (sr_xpath_node_name_eq(request_xpath, "*")) {
         // int fields = 0;
         // int fields_max = 200;
