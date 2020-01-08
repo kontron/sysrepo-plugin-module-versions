@@ -28,10 +28,6 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${CMAKE_PROJE
 
 find_package(PkgConfig REQUIRED)
 
-find_package(GLIB REQUIRED)
-target_link_libraries(${CMAKE_PROJECT_NAME} ${GLIB_LIBRARIES})
-include_directories(${GLIB_INCLUDE_DIRS})
-
 include_directories(${SYSREPO_INCLUDE_DIRS})
 
 find_package(SYSREPO REQUIRED)
