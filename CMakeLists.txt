@@ -69,7 +69,5 @@ endif()
 option(MODEL_INSTALL "Enable yang model installation" ON)
 if (MODEL_INSTALL)
     install(CODE "
-        set(ENV{SYSREPOCTL} ${SYSREPOCTL_EXECUTABLE})
-        set(ENV{SYSREPOCTL_ROOT_PERMS} SYSREPOCTL_ROOT_PERMS)
-        execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/model-install.sh)")
+        execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/model-install.sh ${SYSREPOCTL_EXECUTABLE} \"${SYSREPOCTL_ROOT_PERMS}\")")
 endif()
