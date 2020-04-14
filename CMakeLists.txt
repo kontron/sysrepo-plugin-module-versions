@@ -28,10 +28,6 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${CMAKE_PROJE
 
 find_package(PkgConfig REQUIRED)
 
-find_package(GLIB REQUIRED)
-target_link_libraries(${CMAKE_PROJECT_NAME} ${GLIB_LIBRARIES})
-include_directories(${GLIB_INCLUDE_DIRS})
-
 include_directories(${SYSREPO_INCLUDE_DIRS})
 
 find_package(SYSREPO REQUIRED)
@@ -73,7 +69,5 @@ endif()
 option(MODEL_INSTALL "Enable yang model installation" ON)
 if (MODEL_INSTALL)
     install(CODE "
-        set(ENV{SYSREPOCTL} ${SYSREPOCTL_EXECUTABLE})
-        set(ENV{SYSREPOCTL_ROOT_PERMS} SYSREPOCTL_ROOT_PERMS)
-        execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/model-install.sh)")
+        execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/model-install.sh ${SYSREPOCTL_EXECUTABLE} \"${SYSREPOCTL_ROOT_PERMS}\")")
 endif()
