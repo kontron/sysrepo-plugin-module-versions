@@ -52,7 +52,7 @@ endif()
 # Command line options to be passed to `sysrepoctl` when working with modules
 # which should only be accessible by an administrator
 if (NOT SYSREPOCTL_ROOT_PERMS)
-    set(SYSREPOCTL_ROOT_PERMS "-o root:root -p 600")
+    set(SYSREPOCTL_ROOT_PERMS "-p 600")
 endif()
 
 ## get sysrepo plugins directory
@@ -69,5 +69,10 @@ endif()
 option(MODEL_INSTALL "Enable yang model installation" ON)
 if (MODEL_INSTALL)
     install(CODE "
-        execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/model-install.sh ${SYSREPOCTL_EXECUTABLE} \"${SYSREPOCTL_ROOT_PERMS}\")")
+        message(STATUS \"Installing sysrepo modules...\")
+        execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/model-install.sh ${SYSREPOCTL_EXECUTABLE} \"${SYSREPOCTL_ROOT_PERMS}\" RESULT_VARIABLE RET ERROR_VARIABLE ERR)
+        if(\${RET})
+             message(FATAL_ERROR \"sysrepoctl failed: \${ERR}\")
+        endif()
+    ")
 endif()
