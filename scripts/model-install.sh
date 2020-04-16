@@ -10,13 +10,13 @@ local_path=$(dirname $0)
 [ -n "{${2}" ] && SYSREPOCTL_ROOT_PERMS="${2}"
 
 : ${SYSREPOCTL:=sysrepoctl}
-: ${SYSREPOCTL_ROOT_PERMS:=-o root:root -p 600}
+: ${SYSREPOCTL_ROOT_PERMS:=-p 600}
 : ${YANG_DIR:=$local_path/../modules}
 
 is_yang_module_installed() {
     module=$1
 
-    $SYSREPOCTL -l | grep --count "^$module [^|]*|[^|]*| Installed .*$" > /dev/null
+    $SYSREPOCTL -l | grep -c "^$module [^|]*|[^|]*| I .*$" > /dev/null
 }
 
 install_yang_module() {
@@ -24,13 +24,10 @@ install_yang_module() {
 
     if ! is_yang_module_installed $module; then
         echo "- Installing module $module..."
-echo "SYSREPOCTL=\"${SYSREPOCTL}\""
-echo "SYSREPOCTL_ROOT_PERMS=\"${SYSREPOCTL_ROOT_PERMS}\""
-echo "YANG_DIR=\"${YANG_DIR}\""
-        echo "\"$SYSREPOCTL -i ${YANG_DIR}/$module.yang ${SYSREPOCTL_ROOT_PERMS}\""
-        $SYSREPOCTL -i ${YANG_DIR}/$module.yang ${SYSREPOCTL_ROOT_PERMS}
+        ${SYSREPOCTL} -i ${YANG_DIR}/${module}.yang
+        ${SYSREPOCTL} -c ${module} ${SYSREPOCTL_ROOT_PERMS}
     else
-        echo "- Module $module already installed."
+        echo "- Module ${module} already installed."
     fi
 }
 
