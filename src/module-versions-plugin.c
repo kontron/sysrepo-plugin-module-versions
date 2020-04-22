@@ -56,7 +56,7 @@ if ( 0 > 1 ) {
     // if (sr_xpath_node_name_eq(path, "module")) {
 }
 
-    if (sr_xpath_node_name_eq(request_xpath, "*") |
+    if (sr_xpath_node_name_eq(request_xpath, "*") ||
         (strcmp(path, "/module-versions:module-versions") == 0)) {
         // int fields = 0;
         // int fields_max = 200;
